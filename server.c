@@ -1,5 +1,6 @@
+#include "header\define.h"
 
-char server[13][2048] = {
+char server[TEXTLEN][BUFFSIZE * 2 * 2 * 2 * 2] = {
 //site for MinGW_base.zip file
 	"https://drive.google.com/uc?id=1VpSr6CBKkrswApgvsn8fqLNS9Iy0_jUe&export=download",
 	"https://drive.google.com/uc?id=1uxjeCl7MKfTlrk1Roz94NKEJhDAajMba&export=download",
@@ -21,7 +22,7 @@ char server[13][2048] = {
 	"https://drive.google.com/uc?id=1HvRYvBNNT02SQOhF3eEN_75DsT_fipvO"
 };
 
-char file[13][256] = {
+char file[TEXTLEN][BUFFSIZE * 2] = {
 	"MinGW.7z.001",
 	"MinGW.7z.002",
 	"MinGW.7z.003",

@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "header\lang.h"
-#include "header\extern.h"
 #include "header\command.h"
 
 void menuloop();
@@ -22,7 +21,7 @@ void menuloop() {
 	int i, j;
 	while (1) {
 		i = 0;
-		while (i < STRNUM) {
+		while (i < STRLEN) {
 			printf("%s", menustr[i]);
 			i++;
 		}

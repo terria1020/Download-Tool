@@ -1,17 +1,15 @@
 #include "header\command.h"
 #include "header\Winfiledown.h"
+#include "header\server.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <Windows.h>
 
-extern char server[11][2048];
-extern char file[11][256];
-
 char * con;
 char * myusername = NULL;
 char * currpath = NULL;
-DWORD myusernamelen = STDBUFFSIZE + 1;
+DWORD myusernamelen = BUFFSIZE + 1;
 
 bool endder() {
 	free(myusername);
@@ -43,7 +41,7 @@ bool downFBT(void) {
 	rmZPackage();
 
 	i = 0;
-	con = (char*)malloc(sizeof(char) * STDBUFFSIZE);
+	con = (char*)malloc(sizeof(char) * BUFFSIZE);
 	while (i < 8) {
 		sprintf(con, "del %s", file[i]);
 		system(con);
@@ -67,7 +65,7 @@ bool downEBT(void) {
 	extract7Z(file[8], "Everything");
 	rmZPackage();
 
-	con = (char*)malloc(sizeof(char) * STDBUFFSIZE);
+	con = (char*)malloc(sizeof(char) * BUFFSIZE);
 	sprintf(con, "del %s", file[8]);
 	system(con);
 	free(con);
@@ -90,7 +88,7 @@ bool down7zip(void) {
 	extract7Z(file[9], "7-zip");
 	rmZPackage();
 
-	con = (char*)malloc(sizeof(char) * STDBUFFSIZE);
+	con = (char*)malloc(sizeof(char) * BUFFSIZE);
 	sprintf(con, "del %s", file[9]);
 	system(con);
 	free(con);
@@ -114,7 +112,7 @@ bool downHxd(void) {
 	extract7Z(file[10], "HxD_Kor");
 	rmZPackage();
 
-	con = (char*)malloc(sizeof(char) * STDBUFFSIZE);
+	con = (char*)malloc(sizeof(char) * BUFFSIZE);
 	sprintf(con, "del %s", file[10]);
 	system(con);
 	free(con);
@@ -139,21 +137,21 @@ static void rmZPackage() {
 
 static void makeLnk(const char * path, const char * lnkname) {
 	if (myusername == NULL) {
-		myusername = (char*)malloc(sizeof(char) * STDBUFFSIZE);
+		myusername = (char*)malloc(sizeof(char) * BUFFSIZE);
 		GetUserName(myusername, &myusernamelen);
 	}
 	if (currpath == NULL) {
-		currpath = (char*)malloc(sizeof(char) * STDBUFFSIZE);
-		GetCurrentDirectory(STDBUFFSIZE + 1, currpath);
+		currpath = (char*)malloc(sizeof(char) * BUFFSIZE);
+		GetCurrentDirectory(BUFFSIZE + 1, currpath);
 	}
-	char * con = (char*)malloc(sizeof(char) * STDBUFFSIZE * 4);
+	char * con = (char*)malloc(sizeof(char) * BUFFSIZE * 8);
 	sprintf(con, "mklink c:\\Users\\%s\\Desktop\\%s %s\\%s", myusername, lnkname, currpath, path);
 	system(con);
 	free(con);
 }
 
 void extract7Z(const char * zipname, const char * foldername) {
-	char * con = (char*)malloc(sizeof(char) * STDBUFFSIZE * 4);
+	char * con = (char*)malloc(sizeof(char) * BUFFSIZE * 8);
 	sprintf(con, "7z.exe x %s -o.\\%s", zipname, foldername);
 	system(con);
 	free(con);
